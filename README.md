@@ -1,4 +1,6 @@
-<link rel="icon" type="image/x-icon" href="favicon.ico">
+---
+layout: default
+---
 
 # Одерий Ярослав
 
