@@ -1,7 +1,4 @@
----
-layout: default
-title: Одерий Ярослав | cv
----
+<link rel="icon" type="image/x-icon" href="favicon.ico">
 
 # Одерий Ярослав
 
