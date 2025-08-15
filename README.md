@@ -1,3 +1,8 @@
+---
+layout: default
+title: Одерий Ярослав | cv
+---
+
 # Одерий Ярослав
 
 📧 Email: [tch.xr@ya.ru](mailto:tch.xr@ya.ru)  
