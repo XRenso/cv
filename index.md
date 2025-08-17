@@ -13,7 +13,7 @@ layout: default
 
 ## 🔧 Ключевые навыки
 
-**Языки:** Python, Kotlin, SQL  
+**Языки:** Python, Kotlin, Rust, SQL, Bash  
 **Библиотеки:** Asyncio, Numpy, Requests, Flask, FastAPI, Pandas  
 **Инструменты:** PostgreSQL, MongoDB, Redis, Docker, Docker-compose, Git, Linux, SQLite  
 
