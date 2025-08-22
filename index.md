@@ -23,7 +23,7 @@ layout: default
 
 **Pet-проекты**  
 
-- **Телеграм-бот с веб-приложением для сбора отзывов**  
+- **[Телеграм-бот с веб-приложением для сбора отзывов](https://xrenso.github.io/telegram_review_bot/)**  
   Стек: Python, Aiogram, Flask, Redis, MongoDB, Docker  
   *(лето 2025)*
 
