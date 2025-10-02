@@ -17,6 +17,12 @@
 
 ## 💼 Опыт / Проекты
 
+**Miminet**  
+*[github.com](https://github.com/mimi-net/miminet)*
+Описание: web эмулятор сетей на базе ОС GNU LINUX в учебных целях
+Стек: Python, Flask, Pytest, Selenium, Celery, RabbitMQ, Nginx, Docker, Docker-Compose
+*(осень 2025)*
+
 **Pet-проекты**  
 
 - **[Телеграм-бот с веб-приложением для сбора отзывов](https://xrenso.github.io/telegram_review_bot/)**  
