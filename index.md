@@ -22,9 +22,9 @@ layout: default
 ## 💼 Опыт / Проекты
 
 **Miminet**  
-*[github.com](https://github.com/mimi-net/miminet)*
-Описание: web эмулятор сетей на базе ОС GNU LINUX в учебных целях
-Стек: Python, Flask, Pytest, Selenium, Celery, RabbitMQ, Nginx, Docker, Docker-Compose
+*[github.com](https://github.com/mimi-net/miminet)*  
+Описание: web эмулятор сетей на базе ОС GNU LINUX в учебных целях  
+Стек: Python, Flask, Pytest, Selenium, Celery, RabbitMQ, Nginx, Docker, Docker-Compose  
 *(осень 2025)*
 
 **Pet-проекты**  
