@@ -262,10 +262,23 @@
         }
 
         .preview .skill-category {
-            background: #f8fafc;
-            padding: 10px 15px;
-            border-radius: 6px;
-            margin-bottom: 10px;
+            background: #f1f2f6;
+            padding: 6px 12px;
+            border-radius: 4px;
+            margin-bottom: 6px;
+            margin-right: 8px;
+            display: inline-block;
+        }
+
+        .preview .skills {
+            margin-bottom: 15px;
+            line-height: 1.6;
+        }
+
+        .preview .skills::after {
+            content: "";
+            display: table;
+            clear: both;
         }
 
         .preview .project {
@@ -969,6 +982,8 @@
         h3 a:hover { color: #3498db; text-decoration: underline; }
         .contact-info { background: #f8f9fa; padding: 12px 16px; border-radius: 6px; margin-bottom: 15px; }
         .contact-info p { margin: 4px 0; }
+        .skills { margin-bottom: 15px; line-height: 1.6; }
+        .skills::after { content: ""; display: table; clear: both; }
         .skill-category { background: #f1f2f6; padding: 6px 12px; border-radius: 4px; margin-bottom: 6px; display: inline-block; margin-right: 8px; }
         .project { background: #f8f9fa; border: 1px solid #e1e4e8; border-radius: 6px; padding: 12px 16px; margin-bottom: 15px; }
         .project h3 { margin-top: 0; margin-bottom: 4px; }
