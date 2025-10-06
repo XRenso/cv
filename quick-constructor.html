@@ -454,8 +454,14 @@
             if (data.projectTitle) {
                 html += '<h2>💼 Опыт / Проекты</h2>';
                 html += '<div class="project">';
-                html += `<h3>${data.projectTitle}</h3>`;
-                if (data.projectLink) html += `<p><a href="${data.projectLink}" target="_blank">${data.projectLink}</a></p>`;
+                
+                // Название проекта как ссылка или простой текст
+                if (data.projectLink) {
+                    html += `<h3><a href="${data.projectLink}" target="_blank">${data.projectTitle}</a></h3>`;
+                } else {
+                    html += `<h3>${data.projectTitle}</h3>`;
+                }
+                
                 if (data.projectDescription) html += `<p><strong>Описание:</strong> ${data.projectDescription}</p>`;
                 if (data.projectTech.length) html += `<p><strong>Стек:</strong> ${data.projectTech.join(', ')}</p>`;
                 if (data.projectDate) html += `<p><em>(${data.projectDate})</em></p>`;
@@ -494,6 +500,8 @@
         }
         h1 { color: #2c3e50; border-bottom: 2px solid #3498db; padding-bottom: 10px; }
         h2 { color: #34495e; margin-top: 30px; }
+        h3 a { color: #2c3e50; text-decoration: none; }
+        h3 a:hover { color: #3498db; text-decoration: underline; }
         .contact-info { background: #f8f9fa; padding: 20px; border-radius: 8px; margin-bottom: 20px; }
         .skill-category { background: #f1f2f6; padding: 10px 15px; border-radius: 6px; margin-bottom: 10px; }
         .project { background: #ffffff; border: 1px solid #e9ecef; border-radius: 8px; padding: 20px; margin-bottom: 20px; }

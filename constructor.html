@@ -982,6 +982,9 @@
 
         // Генерация Markdown
         function generateMarkdown() {
+            console.log('generateMarkdown вызвана');
+            console.log('resumeData.experience:', resumeData.experience);
+            
             let md = '';
             const personal = resumeData.personal_info;
 
@@ -1010,6 +1013,7 @@
             }
 
             // Проекты
+            console.log('Проверяем проекты для Markdown, количество:', resumeData.experience.length);
             if (resumeData.experience.length) {
                 md += '## 💼 Опыт / Проекты\n\n';
                 
@@ -1022,6 +1026,8 @@
                     }
                     projectsByType[type].push(project);
                 });
+                
+                console.log('Группировка проектов:', projectsByType);
                 
                 // Отображение групп проектов
                 Object.keys(projectsByType).forEach(type => {
@@ -1045,6 +1051,8 @@
                 });
 
                 md += '---\n\n';
+            } else {
+                console.log('Проекты отсутствуют в resumeData.experience');
             }
 
             // Образование
@@ -1083,7 +1091,10 @@
         }
 
         function downloadMarkdown() {
+            console.log('Скачивание Markdown, данные:', resumeData);
+            console.log('Проекты для экспорта:', resumeData.experience);
             const md = generateMarkdown();
+            console.log('Сгенерированный Markdown:', md);
             const blob = new Blob([md], { type: 'text/markdown;charset=utf-8' });
             const url = URL.createObjectURL(blob);
             const a = document.createElement('a');

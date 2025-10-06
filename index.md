@@ -28,7 +28,7 @@ layout: default
   Стек: Python, Flask, Pytest, Selenium, Celery, RabbitMQ, Nginx, Docker, Docker-Compose, Bash  
   *(осень 2025)*
 
-**Pet-проекты**
+**Pet-проект**
 
 - **[Телеграм-бот с веб-приложением для сбора отзывов](https://xrenso.github.io/telegram_review_bot/)**  
   Стек: Python, Aiogram, Flask, Redis, MongoDB, Docker  
@@ -42,7 +42,7 @@ layout: default
   Стек: Python, Aiogram, MongoDB  
   *(лето 2023)*
 
-**Хакатоны**
+**Хакатон**
 
 - **Веб-приложение для Ростелеком**  
   Описание: отслеживание сотрудников в реальном времени и управление заявками на установку с разными уровнями авторизации  
@@ -60,7 +60,6 @@ layout: default
 
 **СПбГУ, Математико-механический факультет**  
 Направление: Программная инженерия  
-Степень: Бакалавр  
 2024 — наст. время (2 курс)
 
 ---
@@ -71,4 +70,4 @@ layout: default
 
 ---
 
-*Создано с помощью CV Generator by Oderiy Yaroslav • 2025*
+*CV Generator by Oderiy Yaroslav • 2025*
