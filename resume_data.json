@@ -13,7 +13,7 @@
   },
   "experience": [
     {
-      "type": "project",
+      "type": "Основной проект",
       "title": "Miminet",
       "link": "https://github.com/mimi-net/miminet",
       "description": "web эмулятор сетей на базе ОС GNU LINUX в учебных целях",
@@ -21,44 +21,47 @@
       "date": "осень 2025"
     },
     {
-      "type": "pet_project",
+      "type": "Pet-проект",
       "title": "Телеграм-бот с веб-приложением для сбора отзывов",
       "link": "https://xrenso.github.io/telegram_review_bot/",
       "tech_stack": ["Python", "Aiogram", "Flask", "Redis", "MongoDB", "Docker"],
       "date": "лето 2025"
     },
     {
-      "type": "pet_project",
+      "type": "Pet-проект",
       "title": "Сервис для массовой рассылки писем по API",
       "tech_stack": ["Python", "FastAPI", "Pandas", "Docker", "Redis"],
       "date": "весна 2024"
     },
     {
-      "type": "pet_project",
+      "type": "Pet-проект",
       "title": "Телеграм-бот для продажи книг и визуальных новелл с чтением внутри бота",
       "tech_stack": ["Python", "Aiogram", "MongoDB"],
       "date": "лето 2023"
     },
     {
-      "type": "hackathon",
+      "type": "Хакатон",
       "title": "Веб-приложение для Ростелеком",
       "description": "отслеживание сотрудников в реальном времени и управление заявками на установку с разными уровнями авторизации",
       "tech_stack": ["Python", "Flet", "PostgreSQL", "Google Maps API", "NumPy"],
       "date": "апрель 2023"
     },
     {
-      "type": "hackathon",
+      "type": "Хакатон",
       "title": "Программирование БПЛА WorldSkills Russia",
       "description": "приземление на подвижный объект по Aruco метке для БПЛА на прошивке clover",
       "tech_stack": ["Python", "OpenCV", "Linux"],
       "date": "февраль 2022"
     }
   ],
-  "education": {
-    "institution": "СПбГУ, Математико-механический факультет",
-    "field": "Программная инженерия",
-    "period": "2024 — наст. время (2 курс)"
-  },
+  "education": [
+    {
+      "institution": "СПбГУ, Математико-механический факультет",
+      "field": "Программная инженерия",
+      "period": "2024 — наст. время (2 курс)",
+      "degree": "Бакалавр"
+    }
+  ],
   "certificates": [
     "Яндекс Хендбук — Python, Алгоритмы и структуры данных"
   ]

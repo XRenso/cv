@@ -84,54 +84,33 @@ class ResumeBuilder:
             md_content.append("")
 
             # Группировка по типам
-            projects = [exp for exp in experience if exp.get("type") == "project"]
-            pet_projects = [
-                exp for exp in experience if exp.get("type") == "pet_project"
-            ]
-            hackathons = [exp for exp in experience if exp.get("type") == "hackathon"]
-
-            # Основные проекты
-            for project in projects:
-                md_content.append(f"**{project.get('title', 'Без названия')}**")
-                if project.get("link"):
-                    md_content.append(f"*[{project['link']}]({project['link']})*")
-                if project.get("description"):
-                    md_content.append(f"Описание: {project['description']}")
-                if project.get("tech_stack"):
-                    md_content.append(f"Стек: {', '.join(project['tech_stack'])}")
-                if project.get("date"):
-                    md_content.append(f"*({project['date']})*")
-                md_content.append("")
-
-            # Pet-проекты
-            if pet_projects:
-                md_content.append("**Pet-проекты**")
-                md_content.append("")
-                for project in pet_projects:
-                    title = project.get("title", "Без названия")
-                    if project.get("link"):
-                        title = f"[{title}]({project['link']})"
-                    md_content.append(f"- **{title}**")
+            projects_by_type = {}
+            for project in experience:
+                project_type = project.get('type', 'Проект')
+                if project_type not in projects_by_type:
+                    projects_by_type[project_type] = []
+                projects_by_type[project_type].append(project)
+            
+            # Отображение групп проектов
+            for project_type, projects in projects_by_type.items():
+                if len(projects) > 1 or project_type != 'Проект':
+                    md_content.append(f"**{project_type}**")
+                    md_content.append("")
+                
+                for project in projects:
+                    # Название проекта как ссылка или простой текст
+                    title = project.get('title', 'Без названия')
+                    if project.get('link'):
+                        md_content.append(f"- **[{title}]({project['link']})**")
+                    else:
+                        md_content.append(f"- **{title}**")
+                    
+                    if project.get("description"):
+                        md_content.append(f"  Описание: {project['description']}")
                     if project.get("tech_stack"):
                         md_content.append(f"  Стек: {', '.join(project['tech_stack'])}")
                     if project.get("date"):
                         md_content.append(f"  *({project['date']})*")
-                    md_content.append("")
-
-            # Хакатоны
-            if hackathons:
-                md_content.append("**Хакатоны**")
-                md_content.append("")
-                for hackathon in hackathons:
-                    md_content.append(f"- **{hackathon.get('title', 'Без названия')}**")
-                    if hackathon.get("description"):
-                        md_content.append(f"  Задача: {hackathon['description']}")
-                    if hackathon.get("tech_stack"):
-                        md_content.append(
-                            f"  Стек: {', '.join(hackathon['tech_stack'])}"
-                        )
-                    if hackathon.get("date"):
-                        md_content.append(f"  *({hackathon['date']})*")
                     md_content.append("")
 
             md_content.append("---")
@@ -141,12 +120,27 @@ class ResumeBuilder:
         education = self.data.get("education", {})
         if education:
             md_content.append("## 🎓 Образование")
-            if education.get("institution"):
-                md_content.append(f"**{education['institution']}**")
-            if education.get("field"):
-                md_content.append(f"Направление: {education['field']}")
-            if education.get("period"):
-                md_content.append(f"{education['period']}")
+            
+            if isinstance(education, list):
+                for edu in education:
+                    if edu.get("institution"):
+                        md_content.append(f"**{edu['institution']}**")
+                    if edu.get("field"):
+                        md_content.append(f"Направление: {edu['field']}")
+                    if edu.get("degree"):
+                        md_content.append(f"Степень: {edu['degree']}")
+                    if edu.get("period"):
+                        md_content.append(f"{edu['period']}")
+                    md_content.append("")
+            else:
+                # Обратная совместимость
+                if education.get("institution"):
+                    md_content.append(f"**{education['institution']}**")
+                if education.get("field"):
+                    md_content.append(f"Направление: {education['field']}")
+                if education.get("period"):
+                    md_content.append(f"{education['period']}")
+            
             md_content.append("")
             md_content.append("---")
             md_content.append("")
@@ -226,6 +220,14 @@ class ResumeBuilder:
         .project h3 {{
             margin-top: 0;
             color: #2c3e50;
+        }}
+        .project h3 a {{
+            color: #2c3e50;
+            text-decoration: none;
+        }}
+        .project h3 a:hover {{
+            color: #3498db;
+            text-decoration: underline;
         }}
         .tech-stack {{
             background-color: #e8f4f8;
@@ -307,78 +309,70 @@ class ResumeBuilder:
             html_content += '\n\n    <div class="section">\n        <h2><span class="emoji">💼</span>Опыт / Проекты</h2>'
 
             # Группировка по типам
-            projects = [exp for exp in experience if exp.get("type") == "project"]
-            pet_projects = [
-                exp for exp in experience if exp.get("type") == "pet_project"
-            ]
-            hackathons = [exp for exp in experience if exp.get("type") == "hackathon"]
-
-            # Основные проекты
-            for project in projects:
-                html_content += f'\n        <div class="project">\n            <h3>{project.get("title", "Без названия")}</h3>'
-                if project.get("link"):
-                    html_content += f'\n            <p><a href="{project["link"]}" target="_blank">{project["link"]}</a></p>'
-                if project.get("description"):
-                    html_content += f'\n            <p><strong>Описание:</strong> {project["description"]}</p>'
-                if project.get("tech_stack"):
-                    html_content += f'\n            <div class="tech-stack"><strong>Стек:</strong> {", ".join(project["tech_stack"])}</div>'
-                if project.get("date"):
-                    html_content += (
-                        f'\n            <p class="date">({project["date"]})</p>'
-                    )
-                html_content += "\n        </div>"
-
-            # Pet-проекты
-            if pet_projects:
-                html_content += "\n        <h3>Pet-проекты</h3>"
-                for project in pet_projects:
-                    html_content += f'\n        <div class="project">\n            <h3>'
+            projects_by_type = {}
+            for project in experience:
+                project_type = project.get('type', 'Проект')
+                if project_type not in projects_by_type:
+                    projects_by_type[project_type] = []
+                projects_by_type[project_type].append(project)
+            
+            # Отображение групп проектов
+            for project_type, projects in projects_by_type.items():
+                if len(projects) > 1 or project_type != 'Проект':
+                    html_content += f'\n        <h3><strong>{project_type}</strong></h3>'
+                
+                for project in projects:
+                    html_content += '\n        <div class="project">\n            <h3>'
+                    
+                    # Название проекта как ссылка или простой текст
                     title = project.get("title", "Без названия")
                     if project.get("link"):
-                        html_content += (
-                            f'<a href="{project["link"]}" target="_blank">{title}</a>'
-                        )
+                        html_content += f'<a href="{project["link"]}" target="_blank">{title}</a>'
                     else:
                         html_content += title
-                    html_content += "</h3>"
+                    html_content += '</h3>'
+                    
+                    if project.get("description"):
+                        html_content += f'\n            <p><strong>Описание:</strong> {project["description"]}</p>'
                     if project.get("tech_stack"):
                         html_content += f'\n            <div class="tech-stack"><strong>Стек:</strong> {", ".join(project["tech_stack"])}</div>'
                     if project.get("date"):
-                        html_content += (
-                            f'\n            <p class="date">({project["date"]})</p>'
-                        )
+                        html_content += f'\n            <p class="date">({project["date"]})</p>'
                     html_content += "\n        </div>"
 
-            # Хакатоны
-            if hackathons:
-                html_content += "\n        <h3>Хакатоны</h3>"
-                for hackathon in hackathons:
-                    html_content += f'\n        <div class="project">\n            <h3>{hackathon.get("title", "Без названия")}</h3>'
-                    if hackathon.get("description"):
-                        html_content += f'\n            <p><strong>Задача:</strong> {hackathon["description"]}</p>'
-                    if hackathon.get("tech_stack"):
-                        html_content += f'\n            <div class="tech-stack"><strong>Стек:</strong> {", ".join(hackathon["tech_stack"])}</div>'
-                    if hackathon.get("date"):
-                        html_content += (
-                            f'\n            <p class="date">({hackathon["date"]})</p>'
-                        )
-                    html_content += "\n        </div>"
+            html_content += "\n    </div>"
 
             html_content += "\n    </div>"
 
         # Образование
         education = self.data.get("education", {})
         if education:
-            html_content += '\n\n    <div class="section">\n        <h2><span class="emoji">🎓</span>Образование</h2>\n        <div class="project">'
-            if education.get("institution"):
-                html_content += f'\n            <h3>{education["institution"]}</h3>'
-            if education.get("field"):
-                html_content += f'\n            <p><strong>Направление:</strong> {education["field"]}</p>'
-            if education.get("period"):
-                html_content += (
-                    f'\n            <p class="date">{education["period"]}</p>'
-                )
-            html_content += "\n        </div>\n    </div>"
+            html_content += '\n\n    <div class="section">\n        <h2><span class="emoji">🎓</span>Образование</h2>\n'
+            
+            if isinstance(education, list):
+                for edu in education:
+                    html_content += '\n        <div class="project">'
+                    if edu.get("institution"):
+                        html_content += f'\n            <h3>{edu["institution"]}</h3>'
+                    if edu.get("field"):
+                        html_content += f'\n            <p><strong>Направление:</strong> {edu["field"]}</p>'
+                    if edu.get("degree"):
+                        html_content += f'\n            <p><strong>Степень:</strong> {edu["degree"]}</p>'
+                    if edu.get("period"):
+                        html_content += f'\n            <p>{edu["period"]}</p>'
+                    html_content += '\n        </div>'
+            else:
+                # Обратная совместимость со старым форматом
+                html_content += '\n        <div class="project">'
+                if education.get("institution"):
+                    html_content += f'\n            <h3>{education["institution"]}</h3>'
+                if education.get("field"):
+                    html_content += f'\n            <p><strong>Направление:</strong> {education["field"]}</p>'
+                if education.get("period"):
+                    html_content += f'\n            <p>{education["period"]}</p>'
+                html_content += '\n        </div>'
+            
+            html_content += '\n    </div>'
 
         # Сертификаты
         certificates = self.data.get("certificates", [])
@@ -390,7 +384,7 @@ class ResumeBuilder:
 
         # Информация о генерации
         html_content += (
-            f'\n\n    <div class="generated-info">\nОдерий Ярослав 2025\n    </div>'
+            f'\n\n    <div class="generated-info">\n        Created by Oderiy Yaroslav CV Generator • {datetime.now().strftime("%d.%m.%Y")}\n    </div>'
         )
 
         html_content += "\n</body>\n</html>"
@@ -433,7 +427,7 @@ class ResumeBuilder:
             except Exception as e:
                 print(f"⚠️  Не удалось скопировать favicon.ico: {e}")
 
-        print(f"\n🎉 Сборка завершена!")
+        print("\n🎉 Сборка завершена!")
         print(f"📁 Файлы созданы в: {os.path.abspath(output_dir)}")
         print(
             f"🌐 Откройте {os.path.abspath(output_dir)}/resume.html в браузере для предварительного просмотра"
