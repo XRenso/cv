@@ -1,0 +1,65 @@
+{
+  "personal_info": {
+    "name": "Одерий Ярослав",
+    "email": "tch.xr@ya.ru",
+    "telegram": "@xrenso",
+    "github": "github.com/XRenso",
+    "location": "Санкт-Петербург"
+  },
+  "skills": {
+    "languages": ["Python", "Kotlin", "Rust", "SQL", "Bash"],
+    "libraries": ["Asyncio", "Numpy", "Requests", "Flask", "FastAPI", "Pandas"],
+    "tools": ["PostgreSQL", "MongoDB", "Redis", "Docker", "Docker-compose", "Git", "Linux", "SQLite"]
+  },
+  "experience": [
+    {
+      "type": "project",
+      "title": "Miminet",
+      "link": "https://github.com/mimi-net/miminet",
+      "description": "web эмулятор сетей на базе ОС GNU LINUX в учебных целях",
+      "tech_stack": ["Python", "Flask", "Pytest", "Selenium", "Celery", "RabbitMQ", "Nginx", "Docker", "Docker-Compose", "Bash"],
+      "date": "осень 2025"
+    },
+    {
+      "type": "pet_project",
+      "title": "Телеграм-бот с веб-приложением для сбора отзывов",
+      "link": "https://xrenso.github.io/telegram_review_bot/",
+      "tech_stack": ["Python", "Aiogram", "Flask", "Redis", "MongoDB", "Docker"],
+      "date": "лето 2025"
+    },
+    {
+      "type": "pet_project",
+      "title": "Сервис для массовой рассылки писем по API",
+      "tech_stack": ["Python", "FastAPI", "Pandas", "Docker", "Redis"],
+      "date": "весна 2024"
+    },
+    {
+      "type": "pet_project",
+      "title": "Телеграм-бот для продажи книг и визуальных новелл с чтением внутри бота",
+      "tech_stack": ["Python", "Aiogram", "MongoDB"],
+      "date": "лето 2023"
+    },
+    {
+      "type": "hackathon",
+      "title": "Веб-приложение для Ростелеком",
+      "description": "отслеживание сотрудников в реальном времени и управление заявками на установку с разными уровнями авторизации",
+      "tech_stack": ["Python", "Flet", "PostgreSQL", "Google Maps API", "NumPy"],
+      "date": "апрель 2023"
+    },
+    {
+      "type": "hackathon",
+      "title": "Программирование БПЛА WorldSkills Russia",
+      "description": "приземление на подвижный объект по Aruco метке для БПЛА на прошивке clover",
+      "tech_stack": ["Python", "OpenCV", "Linux"],
+      "date": "февраль 2022"
+    }
+  ],
+  "education": {
+    "institution": "СПбГУ, Математико-механический факультет",
+    "field": "Программная инженерия",
+    "period": "2024 — наст. время (2 курс)"
+  },
+  "certificates": [
+    "Яндекс Хендбук — Python, Алгоритмы и структуры данных"
+  ]
+}

@@ -1,0 +1,1122 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Конструктор резюме</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            font-size: 1.1em;
+            opacity: 0.9;
+        }
+
+        .main-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            min-height: 600px;
+        }
+
+        .editor-panel {
+            padding: 30px;
+            background: #f8fafc;
+            border-right: 1px solid #e2e8f0;
+            overflow-y: auto;
+            max-height: 80vh;
+        }
+
+        .preview-panel {
+            padding: 30px;
+            background: white;
+            overflow-y: auto;
+            max-height: 80vh;
+        }
+
+        .section {
+            margin-bottom: 30px;
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+
+        .section-title {
+            color: #1e40af;
+            font-size: 1.3em;
+            font-weight: 600;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 500;
+            color: #374151;
+        }
+
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 10px 15px;
+            border: 2px solid #e5e7eb;
+            border-radius: 8px;
+            font-size: 14px;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: #3b82f6;
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 80px;
+        }
+
+        .skills-input {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            min-height: 100px;
+            padding: 10px;
+            border: 2px solid #e5e7eb;
+            border-radius: 8px;
+            background: #f9fafb;
+        }
+
+        .skill-tag {
+            background: #3b82f6;
+            color: white;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .skill-tag .remove {
+            cursor: pointer;
+            background: rgba(255,255,255,0.3);
+            border-radius: 50%;
+            width: 18px;
+            height: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+        }
+
+        .skill-tag .remove:hover {
+            background: rgba(255,255,255,0.5);
+        }
+
+        .add-skill-input {
+            flex: 1;
+            min-width: 120px;
+            border: none;
+            background: none;
+            outline: none;
+            padding: 5px;
+            font-size: 14px;
+        }
+
+        .project-item {
+            background: #f1f5f9;
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 15px;
+            border-left: 4px solid #3b82f6;
+        }
+
+        .project-header {
+            display: flex;
+            justify-content: between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .project-title {
+            font-weight: 600;
+            color: #1e40af;
+        }
+
+        .btn {
+            background: #3b82f6;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .btn:hover {
+            background: #2563eb;
+            transform: translateY(-1px);
+        }
+
+        .btn-secondary {
+            background: #6b7280;
+        }
+
+        .btn-secondary:hover {
+            background: #4b5563;
+        }
+
+        .btn-danger {
+            background: #ef4444;
+        }
+
+        .btn-danger:hover {
+            background: #dc2626;
+        }
+
+        .btn-small {
+            padding: 5px 12px;
+            font-size: 12px;
+        }
+
+        .actions {
+            text-align: center;
+            padding: 30px;
+            background: #f8fafc;
+            border-top: 1px solid #e2e8f0;
+        }
+
+        .actions button {
+            margin: 0 10px;
+        }
+
+        .preview {
+            font-family: inherit;
+            line-height: 1.6;
+        }
+
+        .preview h1 {
+            color: #1e40af;
+            border-bottom: 2px solid #3b82f6;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+        }
+
+        .preview h2 {
+            color: #374151;
+            margin-top: 30px;
+            margin-bottom: 15px;
+        }
+
+        .preview .contact-info {
+            background: #f1f5f9;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+
+        .preview .skill-category {
+            background: #f8fafc;
+            padding: 10px 15px;
+            border-radius: 6px;
+            margin-bottom: 10px;
+        }
+
+        .preview .project {
+            background: #ffffff;
+            border: 1px solid #e5e7eb;
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 15px;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            animation: fadeIn 0.3s ease;
+        }
+
+        .modal-content {
+            background: white;
+            margin: 5% auto;
+            padding: 30px;
+            border-radius: 15px;
+            width: 90%;
+            max-width: 600px;
+            max-height: 80vh;
+            overflow-y: auto;
+            animation: slideIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes slideIn {
+            from { transform: translateY(-30px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+            line-height: 1;
+        }
+
+        .close:hover {
+            color: #000;
+        }
+
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: #10b981;
+            color: white;
+            padding: 15px 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            z-index: 1001;
+            transform: translateX(400px);
+            transition: transform 0.3s ease;
+        }
+
+        .notification.show {
+            transform: translateX(0);
+        }
+
+        @media (max-width: 768px) {
+            .main-content {
+                grid-template-columns: 1fr;
+            }
+            
+            .editor-panel,
+            .preview-panel {
+                max-height: none;
+            }
+
+            body {
+                padding: 10px;
+            }
+
+            .header h1 {
+                font-size: 2em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🚀 Конструктор резюме</h1>
+            <p>Создавайте профессиональное резюме быстро и легко</p>
+        </div>
+
+        <div class="main-content">
+            <div class="editor-panel">
+                <!-- Персональная информация -->
+                <div class="section">
+                    <div class="section-title">
+                        <span>👤</span>
+                        Персональная информация
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="name">Полное имя</label>
+                        <input type="text" id="name" placeholder="Иван Иванов">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" placeholder="ivan@example.com">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="telegram">Telegram</label>
+                        <input type="text" id="telegram" placeholder="@username">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="github">GitHub</label>
+                        <input type="text" id="github" placeholder="github.com/username">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="location">Местоположение</label>
+                        <input type="text" id="location" placeholder="Москва, Россия">
+                    </div>
+                </div>
+
+                <!-- Навыки -->
+                <div class="section">
+                    <div class="section-title">
+                        <span>🔧</span>
+                        Навыки
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Языки программирования</label>
+                        <div class="skills-input" data-category="languages">
+                            <input type="text" class="add-skill-input" placeholder="Добавить язык...">
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Библиотеки и фреймворки</label>
+                        <div class="skills-input" data-category="libraries">
+                            <input type="text" class="add-skill-input" placeholder="Добавить библиотеку...">
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Инструменты</label>
+                        <div class="skills-input" data-category="tools">
+                            <input type="text" class="add-skill-input" placeholder="Добавить инструмент...">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Проекты -->
+                <div class="section">
+                    <div class="section-title">
+                        <span>💼</span>
+                        Проекты и опыт
+                    </div>
+                    
+                    <div id="projects-list"></div>
+                    
+                    <button class="btn" onclick="openProjectModal()">
+                        ➕ Добавить проект
+                    </button>
+                </div>
+
+                <!-- Образование -->
+                <div class="section">
+                    <div class="section-title">
+                        <span>🎓</span>
+                        Образование
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="institution">Учебное заведение</label>
+                        <input type="text" id="institution" placeholder="МГУ им. М.В. Ломоносова">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="field">Направление</label>
+                        <input type="text" id="field" placeholder="Компьютерные науки">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="period">Период обучения</label>
+                        <input type="text" id="period" placeholder="2020 — 2024">
+                    </div>
+                </div>
+
+                <!-- Сертификаты -->
+                <div class="section">
+                    <div class="section-title">
+                        <span>📜</span>
+                        Сертификаты
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Сертификаты и курсы</label>
+                        <div class="skills-input" data-category="certificates">
+                            <input type="text" class="add-skill-input" placeholder="Добавить сертификат...">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="preview-panel">
+                <div class="section-title">
+                    <span>👁️</span>
+                    Предварительный просмотр
+                </div>
+                <div id="preview" class="preview"></div>
+            </div>
+        </div>
+
+        <div class="actions">
+            <button class="btn" onclick="downloadHTML()">
+                📥 Скачать HTML
+            </button>
+            <button class="btn" onclick="downloadMarkdown()">
+                📝 Скачать Markdown
+            </button>
+            <button class="btn btn-secondary" onclick="loadExample()">
+                📋 Загрузить пример
+            </button>
+            <button class="btn btn-secondary" onclick="clearAll()">
+                🗑️ Очистить всё
+            </button>
+        </div>
+    </div>
+
+    <!-- Модальное окно для добавления проекта -->
+    <div id="projectModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeProjectModal()">&times;</span>
+            <h2>Добавить проект</h2>
+            
+            <div class="form-group">
+                <label for="project-title">Название проекта</label>
+                <input type="text" id="project-title" placeholder="Мой проект">
+            </div>
+            
+            <div class="form-group">
+                <label for="project-type">Тип проекта</label>
+                <select id="project-type">
+                    <option value="project">Основной проект</option>
+                    <option value="pet_project">Pet-проект</option>
+                    <option value="hackathon">Хакатон</option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label for="project-link">Ссылка (необязательно)</label>
+                <input type="url" id="project-link" placeholder="https://github.com/username/project">
+            </div>
+            
+            <div class="form-group">
+                <label for="project-description">Описание</label>
+                <textarea id="project-description" placeholder="Краткое описание проекта..."></textarea>
+            </div>
+            
+            <div class="form-group">
+                <label for="project-tech">Технологии</label>
+                <input type="text" id="project-tech" placeholder="Python, Flask, PostgreSQL (через запятую)">
+            </div>
+            
+            <div class="form-group">
+                <label for="project-date">Дата/период</label>
+                <input type="text" id="project-date" placeholder="лето 2024">
+            </div>
+            
+            <div style="text-align: right; margin-top: 20px;">
+                <button class="btn btn-secondary" onclick="closeProjectModal()">Отмена</button>
+                <button class="btn" onclick="addProject()">Добавить</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Глобальные данные
+        let resumeData = {
+            personal_info: {},
+            skills: {
+                languages: [],
+                libraries: [],
+                tools: []
+            },
+            experience: [],
+            education: {},
+            certificates: []
+        };
+
+        // Инициализация
+        document.addEventListener('DOMContentLoaded', function() {
+            initializeSkillsInput();
+            bindFormEvents();
+            updatePreview();
+        });
+
+        // Инициализация полей навыков
+        function initializeSkillsInput() {
+            document.querySelectorAll('.skills-input').forEach(container => {
+                const input = container.querySelector('.add-skill-input');
+                input.addEventListener('keydown', function(e) {
+                    if (e.key === 'Enter' && this.value.trim()) {
+                        addSkill(container, this.value.trim());
+                        this.value = '';
+                    }
+                });
+            });
+        }
+
+        // Привязка событий к форме
+        function bindFormEvents() {
+            // Персональная информация
+            ['name', 'email', 'telegram', 'github', 'location'].forEach(field => {
+                const element = document.getElementById(field);
+                if (element) {
+                    element.addEventListener('input', function() {
+                        resumeData.personal_info[field] = this.value;
+                        updatePreview();
+                    });
+                }
+            });
+
+            // Образование
+            ['institution', 'field', 'period'].forEach(field => {
+                const element = document.getElementById(field);
+                if (element) {
+                    element.addEventListener('input', function() {
+                        resumeData.education[field] = this.value;
+                        updatePreview();
+                    });
+                }
+            });
+        }
+
+        // Добавление навыка
+        function addSkill(container, skill) {
+            const category = container.dataset.category;
+            
+            if (category === 'certificates') {
+                if (!resumeData.certificates.includes(skill)) {
+                    resumeData.certificates.push(skill);
+                    renderSkillTag(container, skill, category);
+                    updatePreview();
+                }
+            } else {
+                if (!resumeData.skills[category].includes(skill)) {
+                    resumeData.skills[category].push(skill);
+                    renderSkillTag(container, skill, category);
+                    updatePreview();
+                }
+            }
+        }
+
+        // Отображение тега навыка
+        function renderSkillTag(container, skill, category) {
+            const tag = document.createElement('div');
+            tag.className = 'skill-tag';
+            tag.innerHTML = `
+                ${skill}
+                <span class="remove" onclick="removeSkill('${category}', '${skill}', this)">&times;</span>
+            `;
+            container.insertBefore(tag, container.querySelector('.add-skill-input'));
+        }
+
+        // Удаление навыка
+        function removeSkill(category, skill, element) {
+            if (category === 'certificates') {
+                resumeData.certificates = resumeData.certificates.filter(c => c !== skill);
+            } else {
+                resumeData.skills[category] = resumeData.skills[category].filter(s => s !== skill);
+            }
+            element.parentElement.remove();
+            updatePreview();
+        }
+
+        // Открытие модального окна проекта
+        function openProjectModal() {
+            document.getElementById('projectModal').style.display = 'block';
+            // Очистка формы
+            ['project-title', 'project-link', 'project-description', 'project-tech', 'project-date'].forEach(id => {
+                document.getElementById(id).value = '';
+            });
+            document.getElementById('project-type').value = 'project';
+        }
+
+        // Закрытие модального окна
+        function closeProjectModal() {
+            document.getElementById('projectModal').style.display = 'none';
+        }
+
+        // Добавление проекта
+        function addProject() {
+            const project = {
+                type: document.getElementById('project-type').value,
+                title: document.getElementById('project-title').value,
+                link: document.getElementById('project-link').value,
+                description: document.getElementById('project-description').value,
+                date: document.getElementById('project-date').value
+            };
+
+            const techInput = document.getElementById('project-tech').value;
+            if (techInput) {
+                project.tech_stack = techInput.split(',').map(tech => tech.trim()).filter(tech => tech);
+            }
+
+            if (project.title) {
+                resumeData.experience.push(project);
+                renderProjectsList();
+                updatePreview();
+                closeProjectModal();
+                showNotification('Проект добавлен!');
+            } else {
+                alert('Название проекта обязательно!');
+            }
+        }
+
+        // Отображение списка проектов
+        function renderProjectsList() {
+            const container = document.getElementById('projects-list');
+            container.innerHTML = '';
+
+            resumeData.experience.forEach((project, index) => {
+                const projectDiv = document.createElement('div');
+                projectDiv.className = 'project-item';
+                
+                const typeNames = {
+                    'project': 'Основной проект',
+                    'pet_project': 'Pet-проект',
+                    'hackathon': 'Хакатон'
+                };
+
+                projectDiv.innerHTML = `
+                    <div class="project-header">
+                        <div class="project-title">${project.title}</div>
+                        <button class="btn btn-danger btn-small" onclick="removeProject(${index})">Удалить</button>
+                    </div>
+                    <div style="font-size: 0.9em; color: #6b7280;">
+                        ${typeNames[project.type] || 'Проект'} • ${project.date || 'Дата не указана'}
+                    </div>
+                `;
+                container.appendChild(projectDiv);
+            });
+        }
+
+        // Удаление проекта
+        function removeProject(index) {
+            if (confirm('Удалить этот проект?')) {
+                resumeData.experience.splice(index, 1);
+                renderProjectsList();
+                updatePreview();
+                showNotification('Проект удален!');
+            }
+        }
+
+        // Обновление предварительного просмотра
+        function updatePreview() {
+            const preview = document.getElementById('preview');
+            preview.innerHTML = generatePreviewHTML();
+        }
+
+        // Генерация HTML для предварительного просмотра
+        function generatePreviewHTML() {
+            let html = '';
+            const personal = resumeData.personal_info;
+
+            // Заголовок
+            html += `<h1>${personal.name || 'Ваше имя'}</h1>`;
+
+            // Контактная информация
+            if (Object.keys(personal).length > 0) {
+                html += '<div class="contact-info">';
+                if (personal.email) html += `<p>📧 Email: <a href="mailto:${personal.email}">${personal.email}</a></p>`;
+                if (personal.telegram) html += `<p>💬 Telegram: <a href="https://t.me/${personal.telegram.replace('@', '')}">${personal.telegram}</a></p>`;
+                if (personal.github) html += `<p>💻 GitHub: <a href="https://${personal.github}">${personal.github}</a></p>`;
+                if (personal.location) html += `<p>📍 ${personal.location}</p>`;
+                html += '</div>';
+            }
+
+            // Навыки
+            const skills = resumeData.skills;
+            if (skills.languages.length || skills.libraries.length || skills.tools.length) {
+                html += '<h2>🔧 Ключевые навыки</h2>';
+                if (skills.languages.length) {
+                    html += `<div class="skill-category"><strong>Языки:</strong> ${skills.languages.join(', ')}</div>`;
+                }
+                if (skills.libraries.length) {
+                    html += `<div class="skill-category"><strong>Библиотеки:</strong> ${skills.libraries.join(', ')}</div>`;
+                }
+                if (skills.tools.length) {
+                    html += `<div class="skill-category"><strong>Инструменты:</strong> ${skills.tools.join(', ')}</div>`;
+                }
+            }
+
+            // Проекты
+            if (resumeData.experience.length) {
+                html += '<h2>💼 Опыт / Проекты</h2>';
+                
+                // Группировка по типам
+                const projects = resumeData.experience.filter(exp => exp.type === 'project');
+                const petProjects = resumeData.experience.filter(exp => exp.type === 'pet_project');
+                const hackathons = resumeData.experience.filter(exp => exp.type === 'hackathon');
+
+                // Основные проекты
+                projects.forEach(project => {
+                    html += `<div class="project">`;
+                    html += `<h3>${project.title}</h3>`;
+                    if (project.link) html += `<p><a href="${project.link}" target="_blank">${project.link}</a></p>`;
+                    if (project.description) html += `<p><strong>Описание:</strong> ${project.description}</p>`;
+                    if (project.tech_stack) html += `<p><strong>Стек:</strong> ${project.tech_stack.join(', ')}</p>`;
+                    if (project.date) html += `<p><em>(${project.date})</em></p>`;
+                    html += `</div>`;
+                });
+
+                // Pet-проекты
+                if (petProjects.length) {
+                    html += '<h3>Pet-проекты</h3>';
+                    petProjects.forEach(project => {
+                        html += `<div class="project">`;
+                        html += `<h4>${project.title}</h4>`;
+                        if (project.link) html += `<p><a href="${project.link}" target="_blank">${project.link}</a></p>`;
+                        if (project.tech_stack) html += `<p><strong>Стек:</strong> ${project.tech_stack.join(', ')}</p>`;
+                        if (project.date) html += `<p><em>(${project.date})</em></p>`;
+                        html += `</div>`;
+                    });
+                }
+
+                // Хакатоны
+                if (hackathons.length) {
+                    html += '<h3>Хакатоны</h3>';
+                    hackathons.forEach(project => {
+                        html += `<div class="project">`;
+                        html += `<h4>${project.title}</h4>`;
+                        if (project.description) html += `<p><strong>Задача:</strong> ${project.description}</p>`;
+                        if (project.tech_stack) html += `<p><strong>Стек:</strong> ${project.tech_stack.join(', ')}</p>`;
+                        if (project.date) html += `<p><em>(${project.date})</em></p>`;
+                        html += `</div>`;
+                    });
+                }
+            }
+
+            // Образование
+            const education = resumeData.education;
+            if (education.institution || education.field || education.period) {
+                html += '<h2>🎓 Образование</h2>';
+                html += '<div class="project">';
+                if (education.institution) html += `<h3>${education.institution}</h3>`;
+                if (education.field) html += `<p><strong>Направление:</strong> ${education.field}</p>`;
+                if (education.period) html += `<p>${education.period}</p>`;
+                html += '</div>';
+            }
+
+            // Сертификаты
+            if (resumeData.certificates.length) {
+                html += '<h2>📜 Сертификаты и курсы</h2>';
+                html += '<ul>';
+                resumeData.certificates.forEach(cert => {
+                    html += `<li>${cert}</li>`;
+                });
+                html += '</ul>';
+            }
+
+            return html;
+        }
+
+        // Генерация полного HTML
+        function generateFullHTML() {
+            const personal = resumeData.personal_info;
+            return `<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>${personal.name || 'Резюме'}</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            line-height: 1.6;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            color: #333;
+            background-color: #fdfdfd;
+        }
+        h1 { color: #2c3e50; border-bottom: 2px solid #3498db; padding-bottom: 10px; }
+        h2 { color: #34495e; margin-top: 30px; }
+        .contact-info { background: #f8f9fa; padding: 20px; border-radius: 8px; margin-bottom: 20px; }
+        .skill-category { background: #f1f2f6; padding: 10px 15px; border-radius: 6px; margin-bottom: 10px; }
+        .project { background: #ffffff; border: 1px solid #e9ecef; border-radius: 8px; padding: 20px; margin-bottom: 20px; }
+        a { color: #3498db; text-decoration: none; }
+        a:hover { text-decoration: underline; }
+    </style>
+</head>
+<body>
+    ${generatePreviewHTML()}
+    <div style="text-align: center; color: #95a5a6; font-size: 0.8em; margin-top: 40px; border-top: 1px solid #ecf0f1; padding-top: 20px;">
+        Сгенерировано конструктором резюме ${new Date().toLocaleDateString('ru-RU')}
+    </div>
+</body>
+</html>`;
+        }
+
+        // Генерация Markdown
+        function generateMarkdown() {
+            let md = '';
+            const personal = resumeData.personal_info;
+
+            md += '---\n';
+            md += 'layout: default\n';
+            md += '---\n\n';
+            
+            md += `# ${personal.name || 'Ваше имя'}\n\n`;
+
+            // Контактная информация
+            if (personal.email) md += `📧 Email: [${personal.email}](mailto:${personal.email})  \n`;
+            if (personal.telegram) md += `💬 Telegram: [${personal.telegram}](https://t.me/${personal.telegram.replace('@', '')})  \n`;
+            if (personal.github) md += `💻 GitHub: [${personal.github}](https://${personal.github})  \n`;
+            if (personal.location) md += `📍 ${personal.location}\n`;
+
+            md += '\n---\n\n';
+
+            // Навыки
+            const skills = resumeData.skills;
+            if (skills.languages.length || skills.libraries.length || skills.tools.length) {
+                md += '## 🔧 Ключевые навыки\n\n';
+                if (skills.languages.length) md += `**Языки:** ${skills.languages.join(', ')}  \n`;
+                if (skills.libraries.length) md += `**Библиотеки:** ${skills.libraries.join(', ')}  \n`;
+                if (skills.tools.length) md += `**Инструменты:** ${skills.tools.join(', ')}  \n`;
+                md += '\n---\n\n';
+            }
+
+            // Проекты
+            if (resumeData.experience.length) {
+                md += '## 💼 Опыт / Проекты\n\n';
+                
+                const projects = resumeData.experience.filter(exp => exp.type === 'project');
+                const petProjects = resumeData.experience.filter(exp => exp.type === 'pet_project');
+                const hackathons = resumeData.experience.filter(exp => exp.type === 'hackathon');
+
+                projects.forEach(project => {
+                    md += `**${project.title}**  \n`;
+                    if (project.link) md += `*[${project.link}](${project.link})*  \n`;
+                    if (project.description) md += `Описание: ${project.description}  \n`;
+                    if (project.tech_stack) md += `Стек: ${project.tech_stack.join(', ')}  \n`;
+                    if (project.date) md += `*(${project.date})*  \n\n`;
+                });
+
+                if (petProjects.length) {
+                    md += '**Pet-проекты**\n\n';
+                    petProjects.forEach(project => {
+                        let title = project.title;
+                        if (project.link) title = `[${title}](${project.link})`;
+                        md += `- **${title}**  \n`;
+                        if (project.tech_stack) md += `  Стек: ${project.tech_stack.join(', ')}  \n`;
+                        if (project.date) md += `  *(${project.date})*  \n\n`;
+                    });
+                }
+
+                if (hackathons.length) {
+                    md += '**Хакатоны**\n\n';
+                    hackathons.forEach(project => {
+                        md += `- **${project.title}**  \n`;
+                        if (project.description) md += `  Задача: ${project.description}  \n`;
+                        if (project.tech_stack) md += `  Стек: ${project.tech_stack.join(', ')}  \n`;
+                        if (project.date) md += `  *(${project.date})*  \n\n`;
+                    });
+                }
+
+                md += '---\n\n';
+            }
+
+            // Образование
+            const education = resumeData.education;
+            if (education.institution || education.field || education.period) {
+                md += '## 🎓 Образование\n';
+                if (education.institution) md += `**${education.institution}**  \n`;
+                if (education.field) md += `Направление: ${education.field}  \n`;
+                if (education.period) md += `${education.period}\n`;
+                md += '\n---\n\n';
+            }
+
+            // Сертификаты
+            if (resumeData.certificates.length) {
+                md += '## 📜 Сертификаты и курсы\n';
+                resumeData.certificates.forEach(cert => {
+                    md += `- **${cert}**\n`;
+                });
+                md += '\n';
+            }
+
+            return md;
+        }
+
+        // Скачивание файлов
+        function downloadHTML() {
+            const html = generateFullHTML();
+            const blob = new Blob([html], { type: 'text/html;charset=utf-8' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'resume.html';
+            a.click();
+            URL.revokeObjectURL(url);
+            showNotification('HTML файл скачан!');
+        }
+
+        function downloadMarkdown() {
+            const md = generateMarkdown();
+            const blob = new Blob([md], { type: 'text/markdown;charset=utf-8' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'index.md';
+            a.click();
+            URL.revokeObjectURL(url);
+            showNotification('Markdown файл скачан!');
+        }
+
+        // Загрузка примера
+        function loadExample() {
+            if (confirm('Загрузить пример? Текущие данные будут заменены.')) {
+                resumeData = {
+                    personal_info: {
+                        name: "Одерий Ярослав",
+                        email: "tch.xr@ya.ru",
+                        telegram: "@xrenso",
+                        github: "github.com/XRenso",
+                        location: "Санкт-Петербург"
+                    },
+                    skills: {
+                        languages: ["Python", "Kotlin", "Rust", "SQL", "Bash"],
+                        libraries: ["Asyncio", "Numpy", "Requests", "Flask", "FastAPI", "Pandas"],
+                        tools: ["PostgreSQL", "MongoDB", "Redis", "Docker", "Git", "Linux"]
+                    },
+                    experience: [
+                        {
+                            type: "project",
+                            title: "Miminet",
+                            link: "https://github.com/mimi-net/miminet",
+                            description: "web эмулятор сетей на базе ОС GNU LINUX в учебных целях",
+                            tech_stack: ["Python", "Flask", "Pytest", "Selenium", "Celery"],
+                            date: "осень 2025"
+                        }
+                    ],
+                    education: {
+                        institution: "СПбГУ, Математико-механический факультет",
+                        field: "Программная инженерия",
+                        period: "2024 — наст. время (2 курс)"
+                    },
+                    certificates: ["Яндекс Хендбук — Python, Алгоритмы и структуры данных"]
+                };
+                
+                loadDataToForm();
+                showNotification('Пример загружен!');
+            }
+        }
+
+        // Загрузка данных в форму
+        function loadDataToForm() {
+            // Персональная информация
+            Object.keys(resumeData.personal_info).forEach(key => {
+                const element = document.getElementById(key);
+                if (element) element.value = resumeData.personal_info[key];
+            });
+
+            // Образование
+            Object.keys(resumeData.education).forEach(key => {
+                const element = document.getElementById(key);
+                if (element) element.value = resumeData.education[key];
+            });
+
+            // Очистка и загрузка навыков
+            document.querySelectorAll('.skills-input').forEach(container => {
+                const category = container.dataset.category;
+                // Удаляем старые теги
+                container.querySelectorAll('.skill-tag').forEach(tag => tag.remove());
+                
+                // Добавляем новые
+                if (category === 'certificates') {
+                    resumeData.certificates.forEach(skill => {
+                        renderSkillTag(container, skill, category);
+                    });
+                } else if (resumeData.skills[category]) {
+                    resumeData.skills[category].forEach(skill => {
+                        renderSkillTag(container, skill, category);
+                    });
+                }
+            });
+
+            renderProjectsList();
+            updatePreview();
+        }
+
+        // Очистка всех данных
+        function clearAll() {
+            if (confirm('Очистить все данные?')) {
+                resumeData = {
+                    personal_info: {},
+                    skills: { languages: [], libraries: [], tools: [] },
+                    experience: [],
+                    education: {},
+                    certificates: []
+                };
+                
+                // Очистка формы
+                document.querySelectorAll('input, textarea').forEach(el => el.value = '');
+                document.querySelectorAll('.skill-tag').forEach(tag => tag.remove());
+                document.getElementById('projects-list').innerHTML = '';
+                
+                updatePreview();
+                showNotification('Все данные очищены!');
+            }
+        }
+
+        // Показ уведомления
+        function showNotification(message) {
+            const notification = document.createElement('div');
+            notification.className = 'notification';
+            notification.textContent = message;
+            document.body.appendChild(notification);
+            
+            setTimeout(() => notification.classList.add('show'), 100);
+            setTimeout(() => {
+                notification.classList.remove('show');
+                setTimeout(() => document.body.removeChild(notification), 300);
+            }, 3000);
+        }
+
+        // Закрытие модального окна при клике вне его
+        window.onclick = function(event) {
+            const modal = document.getElementById('projectModal');
+            if (event.target === modal) {
+                closeProjectModal();
+            }
+        }
+    </script>
+</body>
+</html>
