@@ -86,25 +86,25 @@ class ResumeBuilder:
             # Группировка по типам
             projects_by_type = {}
             for project in experience:
-                project_type = project.get('type', 'Проект')
+                project_type = project.get("type", "Проект")
                 if project_type not in projects_by_type:
                     projects_by_type[project_type] = []
                 projects_by_type[project_type].append(project)
-            
+
             # Отображение групп проектов
             for project_type, projects in projects_by_type.items():
-                if len(projects) > 1 or project_type != 'Проект':
+                if len(projects) > 1 or project_type != "Проект":
                     md_content.append(f"**{project_type}**")
                     md_content.append("")
-                
+
                 for project in projects:
                     # Название проекта как ссылка или простой текст
-                    title = project.get('title', 'Без названия')
-                    if project.get('link'):
+                    title = project.get("title", "Без названия")
+                    if project.get("link"):
                         md_content.append(f"- **[{title}]({project['link']})**")
                     else:
                         md_content.append(f"- **{title}**")
-                    
+
                     if project.get("description"):
                         md_content.append(f"  Описание: {project['description']}")
                     if project.get("tech_stack"):
@@ -120,7 +120,7 @@ class ResumeBuilder:
         education = self.data.get("education", {})
         if education:
             md_content.append("## 🎓 Образование")
-            
+
             if isinstance(education, list):
                 for edu in education:
                     if edu.get("institution"):
@@ -140,7 +140,7 @@ class ResumeBuilder:
                     md_content.append(f"Направление: {education['field']}")
                 if education.get("period"):
                     md_content.append(f"{education['period']}")
-            
+
             md_content.append("")
             md_content.append("---")
             md_content.append("")
@@ -311,33 +311,39 @@ class ResumeBuilder:
             # Группировка по типам
             projects_by_type = {}
             for project in experience:
-                project_type = project.get('type', 'Проект')
+                project_type = project.get("type", "Проект")
                 if project_type not in projects_by_type:
                     projects_by_type[project_type] = []
                 projects_by_type[project_type].append(project)
-            
+
             # Отображение групп проектов
             for project_type, projects in projects_by_type.items():
-                if len(projects) > 1 or project_type != 'Проект':
-                    html_content += f'\n        <h3><strong>{project_type}</strong></h3>'
-                
+                if len(projects) > 1 or project_type != "Проект":
+                    html_content += (
+                        f"\n        <h3><strong>{project_type}</strong></h3>"
+                    )
+
                 for project in projects:
                     html_content += '\n        <div class="project">\n            <h3>'
-                    
+
                     # Название проекта как ссылка или простой текст
                     title = project.get("title", "Без названия")
                     if project.get("link"):
-                        html_content += f'<a href="{project["link"]}" target="_blank">{title}</a>'
+                        html_content += (
+                            f'<a href="{project["link"]}" target="_blank">{title}</a>'
+                        )
                     else:
                         html_content += title
-                    html_content += '</h3>'
-                    
+                    html_content += "</h3>"
+
                     if project.get("description"):
                         html_content += f'\n            <p><strong>Описание:</strong> {project["description"]}</p>'
                     if project.get("tech_stack"):
                         html_content += f'\n            <div class="tech-stack"><strong>Стек:</strong> {", ".join(project["tech_stack"])}</div>'
                     if project.get("date"):
-                        html_content += f'\n            <p class="date">({project["date"]})</p>'
+                        html_content += (
+                            f'\n            <p class="date">({project["date"]})</p>'
+                        )
                     html_content += "\n        </div>"
 
             html_content += "\n    </div>"
@@ -348,7 +354,7 @@ class ResumeBuilder:
         education = self.data.get("education", {})
         if education:
             html_content += '\n\n    <div class="section">\n        <h2><span class="emoji">🎓</span>Образование</h2>\n'
-            
+
             if isinstance(education, list):
                 for edu in education:
                     html_content += '\n        <div class="project">'
@@ -360,7 +366,7 @@ class ResumeBuilder:
                         html_content += f'\n            <p><strong>Степень:</strong> {edu["degree"]}</p>'
                     if edu.get("period"):
                         html_content += f'\n            <p>{edu["period"]}</p>'
-                    html_content += '\n        </div>'
+                    html_content += "\n        </div>"
             else:
                 # Обратная совместимость со старым форматом
                 html_content += '\n        <div class="project">'
@@ -370,9 +376,9 @@ class ResumeBuilder:
                     html_content += f'\n            <p><strong>Направление:</strong> {education["field"]}</p>'
                 if education.get("period"):
                     html_content += f'\n            <p>{education["period"]}</p>'
-                html_content += '\n        </div>'
-            
-            html_content += '\n    </div>'
+                html_content += "\n        </div>"
+
+            html_content += "\n    </div>"
 
         # Сертификаты
         certificates = self.data.get("certificates", [])
@@ -383,9 +389,7 @@ class ResumeBuilder:
             html_content += "\n        </ul>\n    </div>"
 
         # Информация о генерации
-        html_content += (
-            f'\n\n    <div class="generated-info">\n        Created by Oderiy Yaroslav CV Generator • {datetime.now().strftime("%d.%m.%Y")}\n    </div>'
-        )
+        html_content += f'\n\n    <div class="generated-info">\n        Created by Oderiy Yaroslav CV Generator • {datetime.now().strftime("%d.%m.%Y")}\n    </div>'
 
         html_content += "\n</body>\n</html>"
 
