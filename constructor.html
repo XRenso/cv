@@ -875,6 +875,7 @@
                 if (skills.tools.length) {
                     html += `<div class="skill-category"><strong>Инструменты:</strong> ${skills.tools.join(', ')}</div>`;
                 }
+                html += '<div style="clear: both; margin-bottom: 10px;"></div>';
             }
 
             // Проекты
@@ -894,7 +895,7 @@
                 // Отображение групп проектов
                 Object.keys(projectsByType).forEach(type => {
                     if (projectsByType[type].length > 1 || type !== 'Проект') {
-                        html += `<h3><strong>${type}</strong></h3>`;
+                        html += `<p><strong>${type}</strong></p>`;
                     }
                     
                     projectsByType[type].forEach(project => {
@@ -907,9 +908,9 @@
                             html += `<h3>${project.title}</h3>`;
                         }
                         
-                        if (project.description) html += `<p><strong>Описание:</strong> ${project.description}</p>`;
+                        if (project.description) html += `<p>${project.description}</p>`;
                         if (project.tech_stack) html += `<p><strong>Стек:</strong> ${project.tech_stack.join(', ')}</p>`;
-                        if (project.date) html += `<p><em>(${project.date})</em></p>`;
+                        if (project.date) html += `<p><em>${project.date}</em></p>`;
                         html += `</div>`;
                     });
                 });
@@ -921,21 +922,21 @@
                 resumeData.education.forEach(edu => {
                     html += '<div class="project">';
                     if (edu.institution) html += `<h3>${edu.institution}</h3>`;
-                    if (edu.field) html += `<p><strong>Направление:</strong> ${edu.field}</p>`;
-                    if (edu.degree) html += `<p><strong>Степень:</strong> ${edu.degree}</p>`;
-                    if (edu.period) html += `<p>${edu.period}</p>`;
+                    if (edu.field && edu.period) html += `<p>${edu.field} • ${edu.period}</p>`;
+                    else if (edu.field) html += `<p>${edu.field}</p>`;
+                    else if (edu.period) html += `<p>${edu.period}</p>`;
                     html += '</div>';
                 });
             }
 
             // Сертификаты
             if (resumeData.certificates.length) {
-                html += '<h2>📜 Сертификаты и курсы</h2>';
-                html += '<ul>';
+                html += '<h2>📜 Сертификаты</h2>';
                 resumeData.certificates.forEach(cert => {
-                    html += `<li>${cert}</li>`;
+                    html += '<div class="project">';
+                    html += `<h3>${cert}</h3>`;
+                    html += '</div>';
                 });
-                html += '</ul>';
             }
 
             return html;
@@ -953,20 +954,26 @@
     <style>
         body {
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-            line-height: 1.6;
+            line-height: 1.5;
             max-width: 800px;
             margin: 0 auto;
             padding: 20px;
             color: #333;
             background-color: #fdfdfd;
         }
-        h1 { color: #2c3e50; border-bottom: 2px solid #3498db; padding-bottom: 10px; }
-        h2 { color: #34495e; margin-top: 30px; }
+        h1 { color: #2c3e50; border-bottom: 2px solid #3498db; padding-bottom: 8px; margin-bottom: 20px; }
+        h2 { color: #34495e; margin-top: 25px; margin-bottom: 12px; font-size: 1.3em; }
+        h3 { color: #2c3e50; margin-top: 15px; margin-bottom: 8px; font-size: 1.1em; }
         h3 a { color: #2c3e50; text-decoration: none; }
         h3 a:hover { color: #3498db; text-decoration: underline; }
-        .contact-info { background: #f8f9fa; padding: 20px; border-radius: 8px; margin-bottom: 20px; }
-        .skill-category { background: #f1f2f6; padding: 10px 15px; border-radius: 6px; margin-bottom: 10px; }
-        .project { background: #ffffff; border: 1px solid #e9ecef; border-radius: 8px; padding: 20px; margin-bottom: 20px; }
+        .contact-info { background: #f8f9fa; padding: 12px 16px; border-radius: 6px; margin-bottom: 15px; }
+        .contact-info p { margin: 4px 0; }
+        .skill-category { background: #f1f2f6; padding: 6px 12px; border-radius: 4px; margin-bottom: 6px; display: inline-block; margin-right: 8px; }
+        .project { border-left: 3px solid #3498db; padding-left: 12px; margin-bottom: 15px; }
+        .project h3 { margin-top: 0; margin-bottom: 4px; }
+        .project p { margin-bottom: 3px; }
+        p { margin-bottom: 6px; }
+        em { color: #7f8c8d; font-style: italic; }
         a { color: #3498db; text-decoration: none; }
         a:hover { text-decoration: underline; }
     </style>
@@ -995,10 +1002,12 @@
             md += `# ${personal.name || 'Ваше имя'}\n\n`;
 
             // Контактная информация
+            md += '<div class="contact-info">\n';
             if (personal.email) md += `📧 Email: [${personal.email}](mailto:${personal.email})  \n`;
             if (personal.telegram) md += `💬 Telegram: [${personal.telegram}](https://t.me/${personal.telegram.replace('@', '')})  \n`;
             if (personal.github) md += `💻 GitHub: [${personal.github}](https://${personal.github})  \n`;
             if (personal.location) md += `📍 ${personal.location}\n`;
+            md += '</div>\n';
 
             md += '\n---\n\n';
 
@@ -1006,10 +1015,11 @@
             const skills = resumeData.skills;
             if (skills.languages.length || skills.libraries.length || skills.tools.length) {
                 md += '## 🔧 Ключевые навыки\n\n';
-                if (skills.languages.length) md += `**Языки:** ${skills.languages.join(', ')}  \n`;
-                if (skills.libraries.length) md += `**Библиотеки:** ${skills.libraries.join(', ')}  \n`;
-                if (skills.tools.length) md += `**Инструменты:** ${skills.tools.join(', ')}  \n`;
-                md += '\n---\n\n';
+                md += '<div class="skills">\n';
+                if (skills.languages.length) md += `<span class="skill-category"><strong>Языки:</strong> ${skills.languages.join(', ')}</span>  \n`;
+                if (skills.libraries.length) md += `<span class="skill-category"><strong>Библиотеки:</strong> ${skills.libraries.join(', ')}</span>  \n`;
+                if (skills.tools.length) md += `<span class="skill-category"><strong>Инструменты:</strong> ${skills.tools.join(', ')}</span>  \n`;
+                md += '</div>\n\n---\n\n';
             }
 
             // Проекты
@@ -1036,17 +1046,19 @@
                     }
                     
                     projectsByType[type].forEach(project => {
+                        md += `<div class="project">\n\n`;
+                        
                         // Название проекта как ссылка или простой текст
-                        let title = project.title;
                         if (project.link) {
-                            md += `- **[${title}](${project.link})**  \n`;
+                            md += `### [${project.title}](${project.link})\n\n`;
                         } else {
-                            md += `- **${title}**  \n`;
+                            md += `### ${project.title}\n\n`;
                         }
                         
-                        if (project.description) md += `  Описание: ${project.description}  \n`;
-                        if (project.tech_stack) md += `  Стек: ${project.tech_stack.join(', ')}  \n`;
-                        if (project.date) md += `  *(${project.date})*  \n\n`;
+                        if (project.description) md += `${project.description}\n\n`;
+                        if (project.tech_stack) md += `**Стек:** ${project.tech_stack.join(', ')}\n\n`;
+                        if (project.date) md += `*${project.date}*\n\n`;
+                        md += `</div>\n\n`;
                     });
                 });
 

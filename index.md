@@ -15,64 +15,65 @@ layout: default
 
 <div class="skill-category"><strong>Языки:</strong> Python, Kotlin, Rust, SQL, Bash</div>
 <div class="skill-category"><strong>Библиотеки:</strong> Asyncio, Numpy, Requests, Flask, FastAPI, Pandas</div>
-<div class="skill-category"><strong>Инструменты:</strong> PostgreSQL, MongoDB, Redis, Docker, Docker-compose, Git, Linux, SQLite</div>
+<div class="skill-category"><strong>Инструменты:</strong> PostgreSQL, MongoDB, Redis, Docker, Git, Linux</div>
+
+<div style="clear: both; margin-bottom: 10px;"></div>
 
 ## 💼 Опыт / Проекты
 
-<h3><strong>Основной проект</strong></h3>
+**Основной проект**
 
 <div class="project">
 <h3><a href="https://github.com/mimi-net/miminet" target="_blank">Miminet</a></h3>
-<p><strong>Описание:</strong> web эмулятор сетей на базе ОС GNU LINUX в учебных целях</p>
-<p><strong>Стек:</strong> Python, Flask, Pytest, Selenium, Celery, RabbitMQ, Nginx, Docker, Docker-Compose, Bash</p>
-<p><em>(осень 2025)</em></p>
+<p>Web эмулятор сетей на базе ОС GNU LINUX в учебных целях</p>
+<p><strong>Стек:</strong> Python, Flask, Pytest, Selenium, Celery, RabbitMQ, Nginx, Docker</p>
+<p><em>осень 2025</em></p>
 </div>
 
-<h3><strong>Pet-проект</strong></h3>
+**Pet-проект**
 
 <div class="project">
 <h3><a href="https://xrenso.github.io/telegram_review_bot/" target="_blank">Телеграм-бот с веб-приложением для сбора отзывов</a></h3>
 <p><strong>Стек:</strong> Python, Aiogram, Flask, Redis, MongoDB, Docker</p>
-<p><em>(лето 2025)</em></p>
+<p><em>лето 2025</em></p>
 </div>
 
 <div class="project">
 <h3>Сервис для массовой рассылки писем по API</h3>
 <p><strong>Стек:</strong> Python, FastAPI, Pandas, Docker, Redis</p>
-<p><em>(весна 2024)</em></p>
+<p><em>весна 2024</em></p>
 </div>
 
 <div class="project">
-<h3>Телеграм-бот для продажи книг и визуальных новелл с чтением внутри бота</h3>
+<h3>Телеграм-бот для продажи книг и визуальных новелл</h3>
 <p><strong>Стек:</strong> Python, Aiogram, MongoDB</p>
-<p><em>(лето 2023)</em></p>
+<p><em>лето 2023</em></p>
 </div>
 
-<h3><strong>Хакатон</strong></h3>
+**Хакатон**
 
 <div class="project">
 <h3>Веб-приложение для Ростелеком</h3>
-<p><strong>Описание:</strong> отслеживание сотрудников в реальном времени и управление заявками на установку с разными уровнями авторизации</p>
+<p>Отслеживание сотрудников в реальном времени и управление заявками на установку</p>
 <p><strong>Стек:</strong> Python, Flet, PostgreSQL, Google Maps API, NumPy</p>
-<p><em>(апрель 2023)</em></p>
+<p><em>апрель 2023</em></p>
 </div>
 
 <div class="project">
 <h3>Программирование БПЛА WorldSkills Russia</h3>
-<p><strong>Описание:</strong> приземление на подвижный объект по Aruco метке для БПЛА на прошивке clover</p>
+<p>Приземление на подвижный объект по Aruco метке для БПЛА на прошивке clover</p>
 <p><strong>Стек:</strong> Python, OpenCV, Linux</p>
-<p><em>(февраль 2022)</em></p>
+<p><em>февраль 2022</em></p>
 </div>
 
 ## 🎓 Образование
 
 <div class="project">
 <h3>СПбГУ, Математико-механический факультет</h3>
-<p><strong>Направление:</strong> Программная инженерия</p>
-<p>2024 — наст. время (2 курс)</p>
+<p>Программная инженерия • 2024 — наст. время (2 курс)</p>
 </div>
 
-## 📜 Сертификаты и курсы
+## 📜 Сертификаты
 
 <div class="project">
 <h3>Яндекс Хендбук — Python, Алгоритмы и структуры данных</h3>
@@ -80,6 +81,6 @@ layout: default
 
 ---
 
-<div style="text-align: center; color: #95a5a6; font-size: 0.8em; margin-top: 40px; border-top: 1px solid #ecf0f1; padding-top: 20px;">
+<div style="text-align: center; color: #95a5a6; font-size: 0.8em; margin-top: 25px; border-top: 1px solid #ecf0f1; padding-top: 15px;">
 <em>CV Generator by Oderiy Yaroslav • 2025</em>
 </div>
