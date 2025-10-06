@@ -539,8 +539,14 @@
             // Проект
             if (data.projectTitle) {
                 md += '## 💼 Опыт / Проекты\n\n';
-                md += `**${data.projectTitle}**  \n`;
-                if (data.projectLink) md += `*[${data.projectLink}](${data.projectLink})*  \n`;
+                
+                // Название проекта как ссылка или простой текст
+                if (data.projectLink) {
+                    md += `**[${data.projectTitle}](${data.projectLink})**  \n`;
+                } else {
+                    md += `**${data.projectTitle}**  \n`;
+                }
+                
                 if (data.projectDescription) md += `Описание: ${data.projectDescription}  \n`;
                 if (data.projectTech.length) md += `Стек: ${data.projectTech.join(', ')}  \n`;
                 if (data.projectDate) md += `*(${data.projectDate})*  \n\n`;
